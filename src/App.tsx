@@ -32,7 +32,13 @@ function App() {
       return;
     }
     // handle invalid numbers
+    if (weightNumber < 2 || weightNumber > 400) {
+      alert("Por favor, insira valores maiores que 2kg e menores que 400kg.");
+    }
 
+    if (heightNumber < 0.5 || heightNumber > 2.5) {
+      alert("Por favor, insira valores maiores que 50cm e menores que 2,5m.");
+    }
     // calculate IMC
 
     // set result
