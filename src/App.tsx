@@ -64,23 +64,45 @@ function App() {
       IMCResult: IMCResultString,
     });
     //clear form fields
-
-    console.log("Form submitido");
+    e.currentTarget.reset();
   }
+
+  function handleClickReset(e) {
+    e.preventDefault();
+    setIMCData(null);
+  }
+
   return (
-    <main className="bg-white max-w-4xl mx-auto py-24 px-48">
+    <main className="bg-white max-w-4xl mx-auto md:py-24 md:px-48 px-5 py-10">
       <section id="form">
         <form onSubmit={handleSubmit}>
           <div>
             <Label htmlFor="weight">Peso (kg)</Label>
-            <Input name="weight" className="mt-1" type="text" id="weight" />
+            <Input
+              disabled={!!IMCData}
+              name="weight"
+              className="mt-1"
+              type="text"
+              id="weight"
+            />
           </div>
           <div className="mt-4">
             <Label htmlFor="height">Altura (cm)</Label>
-            <Input name="height" className="mt-1" type="text" id="height" />
+            <Input
+              disabled={!!IMCData}
+              name="height"
+              className="mt-1"
+              type="text"
+              id="height"
+            />
           </div>
-
-          <Button type="submit">Calcular</Button>
+          {IMCData ? (
+            <Button onClick={handleClickReset} type="button">
+              Refazer
+            </Button>
+          ) : (
+            <Button type="submit">Calcular</Button>
+          )}
         </form>
       </section>
       <section id="result" className="py-10 px-4 h-40">
