@@ -1,11 +1,22 @@
 import React from "react";
+import { useState } from "react";
 import "./App.css";
 import Button from "./components/Button";
 import Input from "./components/Input";
 import Label from "./components/Label";
 import ReferenceTable from "./components/ReferenceTable";
+import { calculateIMC, IMCResult } from "./lib/imc";
+import { formatNumber } from "./lib/utils";
+import ResultsTable from "./components/ResultsTable";
 
 function App() {
+  const [IMCData, setIMCData] = useState<null | {
+    weight: number;
+    height: number;
+    IMC: number;
+    IMCResult: string;
+  }>(null);
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -40,10 +51,20 @@ function App() {
       alert("Por favor, insira valores maiores que 50cm e menores que 2,5m.");
     }
     // calculate IMC
+    const IMC = calculateIMC(weightNumber, heightNumber);
+    const IMCResultString = IMCResult(IMC);
+    console.log(IMC);
+    console.log(IMCResultString);
 
     // set result
-
+    setIMCData({
+      weight: weightNumber,
+      height: heightNumber,
+      IMC: IMC,
+      IMCResult: IMCResultString,
+    });
     //clear form fields
+
     console.log("Form submitido");
   }
   return (
@@ -63,9 +84,13 @@ function App() {
         </form>
       </section>
       <section id="result" className="py-10 px-4 h-40">
-        <p className="text-center text-neutral-400 text-xl">
-          Saiba agora se está no seu peso ideal!
-        </p>
+        {IMCData ? (
+          <ResultsTable IMCData={IMCData} />
+        ) : (
+          <p className="text-center text-neutral-400 text-xl">
+            Saiba agora se está no seu peso ideal!
+          </p>
+        )}
       </section>
       <section id="referente-table">
         <ReferenceTable />
