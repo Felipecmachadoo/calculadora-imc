@@ -5,7 +5,7 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import Label from "./components/Label";
 import ReferenceTable from "./components/ReferenceTable";
-import { calculateIMC, IMCResult } from "./lib/imc";
+import { calculateIMC, IMCResult } from "./lib/IMC";
 import { formatNumber } from "./lib/utils";
 import ResultsTable from "./components/ResultsTable";
 
